@@ -1,0 +1,41 @@
+name: PlanetInc
+version: 1.0
+author: Jannnnek
+main: de.jannnnek.planetinc.PlanetInc
+load: POSTWORLD
+api-version: 1.19
+website: plunamc.com
+
+commands:
+  gethead:
+    description: PlanetInc Head bekommen
+    permission: pluna.gethead
+
+  build:
+    description: Bauen de-/aktivieren
+    permission: pluna.build
+
+  debug:
+    description: Debug anzeigen
+    permission: pluna.debug
+
+  spawn:
+    description: Zum Spawn teleportieren
+    permission: pluna.spawn
+
+  setspawn:
+    description: Spawn setzen
+    permission: pluna.setspawn
+
+  stats:
+    description: Zeige Statistiken an
+    permission: pluna.stats
+
+  hub:
+    description: Gehe zur Lobby zurück
+    permission: pluna.hub
+    aliases:
+      - lobby
+      - leave
+      - l
+      - quit
