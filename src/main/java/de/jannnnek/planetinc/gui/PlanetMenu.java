@@ -1,7 +1,6 @@
 package de.jannnnek.planetinc.gui;
 
 import de.jannnnek.planetinc.planet.Planet;
-import de.jannnnek.planetinc.util.Message;
 import de.jannnnek.planetinc.util.PlanetUser;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,6 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.Arrays;
+
+import static de.nbhd.nevadyapi.messages.Message.send;
 
 /**
  * @author NbhdTV
@@ -87,7 +88,7 @@ public class PlanetMenu extends NGUI implements Listener {
                 switch (clickedSlot) {
                     case 8 -> p.closeInventory();
 //                    case 49 -> PlanetMenu2.getGUI(p).open(p);
-                    case 49 -> Message.send(p, "§cKommt später");
+                    case 49 -> send(p, "§cKommt später");
                     default -> {
                         if (Arrays.stream(buildingSlotsNormal).filter(x -> x == clickedSlot).toArray().length >= 1) {
                             PlanetUser user = PlanetUser.users.get(p.getUniqueId());

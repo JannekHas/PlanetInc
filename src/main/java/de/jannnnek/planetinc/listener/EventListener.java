@@ -93,7 +93,7 @@ public class EventListener implements Listener {
         if (e.getEntity() instanceof Player) {
             e.setCancelled(true);
             if (e.getCause().equals(EntityDamageEvent.DamageCause.VOID)){
-                Location location = SpawnCommand.locationFromString(PlanetInc.getYamlConfiguration().getString("spawnLocation"));
+                Location location = locationFromString(PlanetInc.getYamlConfiguration().getString("spawnLocation"));
                 e.getEntity().teleport(location);
             }
         }

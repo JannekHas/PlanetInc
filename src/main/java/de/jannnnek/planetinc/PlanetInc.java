@@ -13,7 +13,6 @@ import de.jannnnek.planetinc.tasks.PlunaTask;
 import de.jannnnek.planetinc.tasks.RankingTask;
 import de.jannnnek.planetinc.tasks.SaveTask;
 import de.jannnnek.planetinc.util.Hologram;
-import de.jannnnek.planetinc.util.Message;
 import de.jannnnek.planetinc.util.PlanetUser;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -92,6 +91,12 @@ public class PlanetInc extends JavaPlugin {
     @Override
     public void onDisable() {
         Hologram.deleteAll();
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            UUID uuid = p.getPlayer().getUniqueId();
+            if(PlanetUser.users.containsKey(uuid)){
+                PlanetUser.users.get(uuid).save();
+            }
+        }
     }
 
     private void initConfig() {
@@ -116,6 +121,23 @@ public class PlanetInc extends JavaPlugin {
         }
     }
 
+    public void setScoreboard(Player p) {
+        Scoreboard scoreboard = p.getScoreboard();
+        Objective objective = scoreboard.getObjective("dummy");
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        objective.setDisplayName("§dPlanet§fInc");
+        objective.getScore("§d").setScore(9);
+        objective.getScore("§7Deine Plunas: ").setScore(8);
+        objective.getScore(" §f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunas())).setScore(7);
+        objective.getScore("§c").setScore(6);
+        objective.getScore("§7Deine Plunas pro Sekunde: ").setScore(5);
+        objective.getScore(" §6§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerSecond())).setScore(4);
+        objective.getScore("§a").setScore(3);
+        objective.getScore("§7Deine Plunas pro Klick: ").setScore(2);
+        objective.getScore(" §5§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerClick())).setScore(1);
+        objective.getScore("§b").setScore(0);
+    }
+
     public static void sendPlayerToServer(Player p, String server) {
         try {
             ByteArrayOutputStream b = new ByteArrayOutputStream();
@@ -132,10 +154,6 @@ public class PlanetInc extends JavaPlugin {
 
     public static PlanetInc getInstance() {
         return instance;
-    }
-
-    public static Map<UUID, Location> getUserLocation() {
-        return userLocation;
     }
 
     public static String simplifyNumber(float number) {

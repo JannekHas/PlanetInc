@@ -1,12 +1,13 @@
 package de.jannnnek.planetinc.gui;
 
-import de.jannnnek.planetinc.util.Message;
 import de.jannnnek.planetinc.util.PlanetUser;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+
+import static de.nbhd.nevadyapi.messages.Message.send;
 
 /**
  * @author NbhdTV
@@ -103,7 +104,7 @@ public class PlanetMenu2 extends NGUI implements Listener {
 //                            // Building kaufen, wenn Rank
 //                        }
                         // Gebäude Stats
-                        Message.send(p,"§cKommt später");
+                        send(p,"§cKommt später");
                         p.closeInventory();
                         break;
                 }

@@ -1,13 +1,15 @@
 package de.jannnnek.planetinc.command;
 
-import de.jannnnek.planetinc.util.Message;
 import org.bukkit.GameMode;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+
+import static de.nbhd.nevadyapi.messages.Message.*;
 
 public class BuildCommand implements CommandExecutor {
 
@@ -18,12 +20,14 @@ public class BuildCommand implements CommandExecutor {
         if (allowed.contains(p)) {
             allowed.remove(p);
             p.setGameMode(GameMode.SURVIVAL);
-            Message.send(p, "§7Du kannst nun nicht mehr bauen.");
+            send(p, "§7Du kannst nun nicht mehr bauen.");
+            p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 3.0F, 1.0F);
         }
         else {
             allowed.add(p);
             p.setGameMode(GameMode.CREATIVE);
-            Message.send(p, "§7Du kannst nun bauen.");
+            send(p, "§7Du kannst nun bauen.");
+            p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 3.0F, 1.0F);
         }
         return false;
     }

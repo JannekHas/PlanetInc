@@ -1,7 +1,6 @@
 package de.jannnnek.planetinc.listener;
 
 import de.jannnnek.planetinc.gui.PlanetMenu;
-import de.jannnnek.planetinc.util.Message;
 import de.jannnnek.planetinc.util.PlanetUser;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,7 +14,9 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import java.util.HashMap;
 
-public class ClickListener extends Message implements Listener {
+import static de.nbhd.nevadyapi.messages.Message.sendActionbar;
+
+public class ClickListener implements Listener {
 
     public static HashMap<String, Integer> cps = new HashMap<>();
     public static HashMap<String, Integer> addedPlunas = new HashMap<>();

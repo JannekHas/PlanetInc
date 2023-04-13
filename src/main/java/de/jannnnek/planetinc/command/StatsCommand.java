@@ -1,6 +1,5 @@
 package de.jannnnek.planetinc.command;
 
-import de.jannnnek.planetinc.util.Message;
 import de.jannnnek.planetinc.util.PlanetUser;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -16,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static de.nbhd.nevadyapi.messages.Message.send;
+
 public class StatsCommand implements TabExecutor {
 
     @Override
@@ -24,7 +25,7 @@ public class StatsCommand implements TabExecutor {
             Player p = (Player) sender;
             if (p.getCooldown(Material.DIAMOND_HOE) > 0) {
                 float remainingTime = (float) (p.getCooldown(Material.DIAMOND_HOE) / 20.0);
-                Message.send(p, "§cDu musst noch " + round(remainingTime, 1) + " Sekunden warten.");
+                send(p, "§cDu musst noch " + round(remainingTime, 1) + " Sekunden warten.");
                 return false;
             }
             if (args.length == 1) {
@@ -32,23 +33,23 @@ public class StatsCommand implements TabExecutor {
                 UUID uuid = target.getUniqueId();
                 if (PlanetUser.users.containsKey(uuid)) {
                     PlanetUser user = PlanetUser.users.get(uuid);
-                    Message.send(p, "§7Statistiken von §d" + target.getName() + "§7:");
-                    Message.send(p, "§7Klicks: §b" + user.getClicks());
-                    Message.send(p, "§7Anzahl gekaufter Planeten: §b" + user.getBuildings());
-                    Message.send(p, "§f\uE013§7 pro Klick: §b" + user.getPlunasPerClick());
-                    Message.send(p, "§f\uE013§7 pro Sekunde: §b" + user.getPlunasPerSecond());
+                    send(p, "§7Statistiken von §d" + target.getName() + "§7:");
+                    send(p, "§7Klicks: §b" + user.getClicks());
+                    send(p, "§7Anzahl gekaufter Planeten: §b" + user.getBuildings());
+                    send(p, "§f\uE013§7 pro Klick: §b" + user.getPlunasPerClick());
+                    send(p, "§f\uE013§7 pro Sekunde: §b" + user.getPlunasPerSecond());
                 } else {
-                    Message.send(p, "§7Der Spieler §d" + args[0] + " §7hat noch nie PlanetInc gespielt.");
+                    send(p, "§7Der Spieler §d" + args[0] + " §7hat noch nie PlanetInc gespielt.");
                 }
             } else if (args.length == 0) {
                 PlanetUser user = PlanetUser.users.get(p.getUniqueId());
-                Message.send(p, "§7Deine Statistiken:");
-                Message.send(p, "§7Klicks: §b" + user.getClicks());
-                Message.send(p, "§7Anzahl gekaufter Planeten: §b" + user.getBuildings());
-                Message.send(p, "§f\uE013§7 pro Klick: §b" + user.getPlunasPerClick());
-                Message.send(p, "§f\uE013§7 pro Sekunde: §b" + user.getPlunasPerSecond());
+                send(p, "§7Deine Statistiken:");
+                send(p, "§7Klicks: §b" + user.getClicks());
+                send(p, "§7Anzahl gekaufter Planeten: §b" + user.getBuildings());
+                send(p, "§f\uE013§7 pro Klick: §b" + user.getPlunasPerClick());
+                send(p, "§f\uE013§7 pro Sekunde: §b" + user.getPlunasPerSecond());
             } else {
-                Message.send(p, "§7Bitte nutze §d/stats <Spieler>");
+                send(p, "§7Bitte nutze §d/stats <Spieler>");
             }
             p.setCooldown(Material.DIAMOND_HOE, 60);
         }
