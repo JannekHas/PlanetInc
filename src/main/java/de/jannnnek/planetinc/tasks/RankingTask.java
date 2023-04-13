@@ -19,7 +19,7 @@ public class RankingTask extends BukkitRunnable {
     public void run() {
         Hologram.deleteAll();
         Hologram.lineCount = 999;
-        Hologram holo = new Hologram(1).create(new Location(Bukkit.getWorld("world"), 17, -40, -1));
+        Hologram holo = new Hologram(1).create(new Location(Bukkit.getWorld("world"), -14.5, 44, 16.5));
         holo.setTitle("§6Bestenliste: §f\uE013");
         Map<Integer, String> ranking = RankingTask.getPlunaRanking();
         for(int i = 10; i >= 1; i--) {

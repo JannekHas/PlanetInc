@@ -30,7 +30,7 @@ public class ClickListener extends Message implements Listener {
             if (clickedBlock != null) {
                 if (clickedBlock.getType().equals(Material.PLAYER_HEAD)) {
 //                    HeadLocation
-                    if (clickedBlock.getLocation().equals(new Location(p.getWorld(), 17, -43, -1))) {
+                    if (clickedBlock.getLocation().equals(new Location(p.getWorld(), 1, 43, 16)) || clickedBlock.getLocation().equals(new Location(p.getWorld(), 7, 36, 16))) {
                         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
                             PlanetMenu.getGUI(e.getPlayer()).open(e.getPlayer());
                         } else if (e.getAction().equals(Action.LEFT_CLICK_BLOCK)) {

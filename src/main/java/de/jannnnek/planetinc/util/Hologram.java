@@ -1,5 +1,6 @@
 package de.jannnnek.planetinc.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -76,7 +77,7 @@ public class Hologram {
     public void addLine(String line) {
         lineCount++;
         Hologram newHolo = new Hologram(lineCount).create(Hologram.holograms.get(id).getLocation());
-        new Hologram(id).move(Hologram.holograms.get(id).getLocation().add(0, 0.35, 0));
+        new Hologram(id).move(holograms.get(id).getLocation().add(0, 0.35, 0));
         newHolo.setTitle(line);
     }
 
