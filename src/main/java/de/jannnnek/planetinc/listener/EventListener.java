@@ -6,6 +6,7 @@ import de.jannnnek.planetinc.command.SpawnCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Painting;
@@ -21,8 +22,14 @@ import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.BlockInventoryHolder;
+
+import static de.jannnnek.planetinc.command.SpawnCommand.locationFromString;
+import static de.nbhd.nevadyapi.messages.Message.*;
 
 public class EventListener implements Listener {
 
@@ -43,6 +50,58 @@ public class EventListener implements Listener {
     public void onBlockBreak(BlockBreakEvent e) {
         if (!BuildCommand.allowed.contains(e.getPlayer())) {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onSneak(PlayerToggleSneakEvent e) {
+        if(e.isSneaking()) {
+            if (e.getPlayer().getLocation().clone().getBlock().getType().equals(Material.DAYLIGHT_DETECTOR)) {
+                Location loc = findNextBlock(e.getPlayer().getLocation().clone().subtract(0, 1, 0), Material.DAYLIGHT_DETECTOR, true);
+                if (loc != null) {
+                    e.getPlayer().teleport(loc.clone().add(0.5, 0.375, 0.5));
+                    sendTitleWithTimesWithSound(e.getPlayer(), "", "§c↓", 0, 40, 10, Sound.ENTITY_PLAYER_LEVELUP);
+                } else {
+                    sendTitleWithTimesWithSound(e.getPlayer(), "§7", "§4❌", 0, 40, 10, Sound.BLOCK_NOTE_BLOCK_BASS);
+                }
+            }
+        }
+    }
+
+    public static Location findNextBlock(Location loc, Material mat, boolean negative) {
+        if(!negative) {
+            for(int y = loc.getBlockY(); y < 319; y++) {
+                if(loc.getWorld().getBlockAt(loc.getBlockX(), y, loc.getBlockZ()).getType().equals(mat)) {
+                    return loc.getWorld().getBlockAt(loc.getBlockX(), y, loc.getBlockZ()).getLocation();
+                }
+            }
+        } else {
+            for(int y = loc.getBlockY(); y > -60; y--) {
+                if(loc.getWorld().getBlockAt(loc.getBlockX(), y, loc.getBlockZ()).getType().equals(mat)) {
+                    return loc.getWorld().getBlockAt(loc.getBlockX(), y, loc.getBlockZ()).getLocation();
+                }
+            }
+        }
+        return null;
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent e) {
+        if(e.getTo().getBlockY() == 12) {
+            e.getPlayer().teleport(locationFromString(PlanetInc.getYamlConfiguration().getString("spawnLocation")));
+            e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_HURT, 0.5f, 1);
+            return;
+        }
+        if (e.getTo().getBlockY() > e.getFrom().getBlockY()) {
+            if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType().equals(Material.DAYLIGHT_DETECTOR)) {
+                Location loc = findNextBlock(e.getTo().clone().add(0, 2, 0), Material.DAYLIGHT_DETECTOR, false);
+                if (loc != null) {
+                    e.getPlayer().teleport(loc.clone().add(0.5, 0.375, 0.5));
+                    sendTitleWithTimesWithSound(e.getPlayer(), "§7", "§a↑", 0, 40, 10, Sound.ENTITY_PLAYER_LEVELUP);
+                } else {
+                    sendTitleWithTimesWithSound(e.getPlayer(), "§7", "§4❌", 0, 40, 10, Sound.BLOCK_NOTE_BLOCK_BASS);
+                }
+            }
         }
     }
 
@@ -117,14 +176,14 @@ public class EventListener implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         if (e.getClickedBlock() != null) {
             if (!BuildCommand.allowed.contains(e.getPlayer())) {
-                if (e.getClickedBlock().getType().equals(Material.SPRUCE_TRAPDOOR)) {
+                if (e.getClickedBlock().getType().equals(Material.NOTE_BLOCK)
+                        || e.getClickedBlock().getState() instanceof BlockInventoryHolder
+                        || e.getClickedBlock().getType().name().contains("TRAPDOOR")
+                        || e.getClickedBlock().getType().name().contains("BED")
+                        || e.getClickedBlock().getType().equals(Material.JUNGLE_DOOR)
+                        || e.getClickedBlock().getType().equals(Material.LEVER)) {
                     e.setCancelled(true);
-                }
-                if (e.getClickedBlock().getType().equals(Material.NOTE_BLOCK)) {
-                    e.setCancelled(true);
-                }
-                if (e.getClickedBlock().getType().equals(Material.BARREL)) {
-                    e.setCancelled(true);
+                    return;
                 }
             }
         }

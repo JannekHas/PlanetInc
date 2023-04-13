@@ -7,17 +7,22 @@ import de.jannnnek.planetinc.listener.ConnectionListener;
 import de.jannnnek.planetinc.listener.EventListener;
 import de.jannnnek.planetinc.listener.HotbarListener;
 import de.jannnnek.planetinc.planet.PlanetJoin;
-import de.jannnnek.planetinc.scoreboard.ScoreboardManager;
 import de.jannnnek.planetinc.tasks.AFKTask;
 import de.jannnnek.planetinc.tasks.PlunaTask;
 import de.jannnnek.planetinc.tasks.RankingTask;
 import de.jannnnek.planetinc.tasks.SaveTask;
 import de.jannnnek.planetinc.util.Hologram;
 import de.jannnnek.planetinc.util.PlanetUser;
-import org.bukkit.*;
+import de.nbhd.nevadyapi.messages.Message;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -29,8 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-import static de.jannnnek.planetinc.util.Message.sendEnableMessage;
-import static de.jannnnek.planetinc.util.Message.sendLog;
+import static de.nbhd.nevadyapi.messages.Message.sendEnableMessage;
 
 public class PlanetInc extends JavaPlugin {
 
@@ -49,7 +53,6 @@ public class PlanetInc extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ClickListener(), this);
         getServer().getPluginManager().registerEvents(new EventListener(), this);
         getServer().getPluginManager().registerEvents(new GuiListener(), this);
-        getServer().getPluginManager().registerEvents(new ScoreboardManager(), this);
         getCommand("gethead").setExecutor(new GetPlanetHeadCommand());
         getCommand("build").setExecutor(new BuildCommand());
         getCommand("debug").setExecutor(new Message());
@@ -72,13 +75,13 @@ public class PlanetInc extends JavaPlugin {
                     if(!PlanetUser.users.containsKey(all.getUniqueId())) new PlanetUser(all.getUniqueId());
                 }
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    ScoreboardManager.setScoreboard(p);
                     if(!PlanetUser.users.containsKey(p.getUniqueId())) new PlanetUser(p.getUniqueId());
                     ConnectionListener.setEffects(p);
                     ConnectionListener.hideOnJoin(p);
                     p.setHealth(20);
                     p.setFoodLevel(20);
                     ConnectionListener.spawnTeleport(p);
+                    setScoreboard(p);
                 }
                 (new RankingTask()).runTaskTimer(getInstance(), 0, 600*20);
                 serverStarting = false;

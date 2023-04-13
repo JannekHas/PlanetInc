@@ -2,6 +2,7 @@ package de.jannnnek.planetinc.listener;
 
 import de.jannnnek.planetinc.PlanetInc;
 import de.jannnnek.planetinc.command.SpawnCommand;
+import de.jannnnek.planetinc.util.PlanetUser;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -16,6 +17,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,8 +38,27 @@ public class ConnectionListener implements Listener {
         p.setGameMode(GameMode.SURVIVAL);
         p.getInventory().clear();
         p.getInventory().setItem(8, createItemStack(Material.IRON_INGOT, "§dSpieler verstecken", "§7Rechts-Klick um Spieler auszublenden", 1));
-        e.setJoinMessage("§f\ue001 §2>> §7" + p.getName());
+        e.setJoinMessage("§f\ue001 §2» §7" + p.getName());
         spawnTeleport(p);
+        Bukkit.getScheduler().runTaskLater(PlanetInc.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                Scoreboard scoreboard = p.getScoreboard();
+                Objective objective = scoreboard.getObjective("dummy");
+                objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+                objective.setDisplayName("§dPlanet§fInc");
+                objective.getScore("§d").setScore(9);
+                objective.getScore("§7Deine Plunas: ").setScore(8);
+                objective.getScore("§7» §f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunas())).setScore(7);
+                objective.getScore("§c").setScore(6);
+                objective.getScore("§7Deine Plunas pro Sekunde: ").setScore(5);
+                objective.getScore("§7» §6§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerSecond())).setScore(4);
+                objective.getScore("§a").setScore(3);
+                objective.getScore("§7Deine Plunas pro Klick: ").setScore(2);
+                objective.getScore("§7» §5§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerClick())).setScore(1);
+                objective.getScore("§b").setScore(0);
+            }
+        }, 20);
     }
 
     @EventHandler
@@ -45,7 +68,7 @@ public class ConnectionListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        e.setQuitMessage("§f\ue001 §4<< §7" + e.getPlayer().getName());
+        e.setQuitMessage("§f\ue001 §4« §7" + e.getPlayer().getName());
     }
 
     public static void setEffects(Player p) {
