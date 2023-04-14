@@ -2,6 +2,7 @@ package de.jannnnek.planetinc.util;
 
 import de.jannnnek.planetinc.planet.Planet;
 import de.nbhd.nevadyapi.mysql.ranks.RankManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -133,6 +134,16 @@ public class PlanetUser {
             }
         }
         return (pps*getRankMultiplier());
+    }
+
+    public void reset() {
+        setClicks(0);
+        setPlunas(2500.0);
+        setBuildings(0);
+        for (int i = 0; i < buildingInt.length; i++) {
+            setBuilding(i, 0);
+        }
+        save();
     }
 
     private double getRankMultiplier() {

@@ -39,3 +39,7 @@ commands:
       - leave
       - l
       - quit
+
+  reset:
+    description: Setze die Spielerdaten eines Spielers zurück
+    permission: pluna.reset

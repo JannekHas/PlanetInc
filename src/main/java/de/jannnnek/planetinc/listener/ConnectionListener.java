@@ -24,6 +24,8 @@ import org.bukkit.scoreboard.Scoreboard;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static de.nbhd.nevadyapi.messages.Message.send;
+
 public class ConnectionListener implements Listener {
 
     private static final ArrayList<String> playerHider = new ArrayList<>();
@@ -44,6 +46,7 @@ public class ConnectionListener implements Listener {
             @Override
             public void run() {
                 PlanetInc.setScoreboard(p);
+                tutorialSpawn(p);
             }
         }, 20);
     }
@@ -74,6 +77,23 @@ public class ConnectionListener implements Listener {
     public static void spawnTeleport(Player player) {
         Location location = SpawnCommand.locationFromString(PlanetInc.getYamlConfiguration().getString("spawnLocation"));
         player.teleport(location);
+    }
+
+    public void tutorialSpawn(Player p) {
+        PlanetUser user = PlanetUser.users.get(p.getUniqueId());
+        if (user.getHighestBuilding() == 0) {
+            send(p, "§d§kasdfghjklqwertzui");
+            send(p, " ");
+            send(p, "§7Willkommen bei §dPlanet§fInc§7!");
+            send(p, "§7Um deine galaktische Reise zu starten, musst du zunächst");
+            send(p, "§7deinen ersten Planeten beim Pluto-Kopf, in der Mitte der");
+            send(p, "§7Map, kaufen. Anschließend kannst du durch aktives Klicken");
+            send(p, "§7auf diesen Kopf oder durch passives Einkommen durch");
+            send(p, "§7gekaufte Planeten weiteres Plunas §f\uE013 §7sammeln und");
+            send(p, "§7der reichste kosmische Spieler auf ganz Pluna werden.");
+            send(p, " ");
+            send(p, "§d§kasdfghjklqwertzui");
+        }
     }
 
     public static ItemStack createItemStack(Material material, String displayname, String lore, int customModelData) {

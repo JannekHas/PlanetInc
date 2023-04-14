@@ -20,10 +20,14 @@ public class PlunaTask extends BukkitRunnable {
                     ClickListener.addedPlunas.remove(p.getName());
                 }
             }
-            user.setPlunas(user.getPlunas() + user.getPlunasPerSecond());
-            ScoreboardManager.updateScoreboardWithIdentifier(p, "§7» §f\uE013", "§7» §f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunas()));
-            ScoreboardManager.updateScoreboardWithIdentifier(p, "§7» §6§f\uE013", "§7» §6§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerSecond()));
-            ScoreboardManager.updateScoreboardWithIdentifier(p, "§7» §5§f\uE013", "§7» §5§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerClick()));
+            if(p.getScoreboard().getObjective("dummy") != null) {
+                if (!p.getScoreboard().getObjective("dummy").getDisplayName().equals("dummy")) {
+                    user.setPlunas(user.getPlunas() + user.getPlunasPerSecond());
+                    ScoreboardManager.updateScoreboardWithIdentifier(p, "§7» §f\uE013", "§7» §f\uE013 §b" + PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunas()));
+                    ScoreboardManager.updateScoreboardWithIdentifier(p, "§7» §6§f\uE013", "§7» §6§f\uE013 §b" + PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerSecond()));
+                    ScoreboardManager.updateScoreboardWithIdentifier(p, "§7» §5§f\uE013", "§7» §5§f\uE013 §b" + PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerClick()));
+                }
+            }
         }
     }
 }

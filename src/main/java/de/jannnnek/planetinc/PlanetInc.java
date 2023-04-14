@@ -61,6 +61,8 @@ public class PlanetInc extends JavaPlugin {
         getCommand("stats").setExecutor(new StatsCommand());
         getCommand("stats").setTabCompleter(new StatsCommand());
         getCommand("hub").setExecutor(new HubCommand());
+        getCommand("reset").setExecutor(new ResetCommand());
+        getCommand("reset").setTabCompleter(new ResetCommand());
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         instance = this;
 
@@ -84,6 +86,7 @@ public class PlanetInc extends JavaPlugin {
                     setScoreboard(p);
                 }
                 (new RankingTask()).runTaskTimer(getInstance(), 0, 600*20);
+                setHologram();
                 serverStarting = false;
             }
         }, 10);
@@ -139,6 +142,12 @@ public class PlanetInc extends JavaPlugin {
         objective.getScore("§7Plunas/Klick: ").setScore(2);
         objective.getScore("§7» §5§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerClick())).setScore(1);
         objective.getScore("§b").setScore(0);
+    }
+
+    public static void setHologram() {
+        Hologram holo = new Hologram(2).create(new Location(Bukkit.getWorld("world"), 1.5, 44, 16.5));
+        holo.setTitle("§f\uE015 §7Plunas sammeln");
+        holo.addLine("§f\uE016 §7Planeten kaufen");
     }
 
     public static void sendPlayerToServer(Player p, String server) {

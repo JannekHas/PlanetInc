@@ -2,6 +2,7 @@ package de.jannnnek.planetinc.gui;
 
 import de.jannnnek.planetinc.planet.Planet;
 import de.jannnnek.planetinc.util.PlanetUser;
+import de.nbhd.nevadyapi.mysql.ranks.RankManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,42 +30,42 @@ public class PlanetMenu extends NGUI implements Listener {
             switch (PlanetUser.users.get(p.getUniqueId()).getBuilding(i)) {
                 case 0:
                     ngui.getInventory().setItem(slot, new ItemBuilder(Material.POPPED_CHORUS_FRUIT)
-                            .setCustomModelData(12).setName("§aMerkur kaufen").setLore("§7Preis: 2500§f\uE013").build());
+                            .setCustomModelData(12).setName("§f\uE015§7 §aMerkur kaufen").setLore("§7Preis: 2.500§f\uE013").build());
                     break;
                 case 1:
                     ngui.getInventory().setItem(slot, new ItemBuilder(Material.POPPED_CHORUS_FRUIT, 1)
                             .setCustomModelData(PlanetUser.users.get(p.getUniqueId())
-                                    .getBuilding(i)).setName("§7Merkur").setLore("§f\uE013§7 pro Sekunde: 1", "", "§7(Klicke) Kaufe §6Venus","§7Preis: 5000§f\uE013", "§7Erzeugt 2 §f\uE013§7 pro Sekunde").build());
+                                    .getBuilding(i)).setName("§7Merkur").setLore("§f\uE013§7 pro Sekunde: 1", "", "§7§f\uE015§7 Kaufe §6Venus","§7Preis: 5.000§f\uE013", "§7Erzeugt 2 §f\uE013§7 pro Sekunde").build());
                     break;
                 case 2:
                     ngui.getInventory().setItem(slot, new ItemBuilder(Material.POPPED_CHORUS_FRUIT, 2)
                             .setCustomModelData(PlanetUser.users.get(p.getUniqueId())
-                                    .getBuilding(i)).setName("§6Venus").setLore("§f\uE013§7 pro Sekunde: 2", "", "§7(Klicke) Kaufe §9Erde","§7Preis: 10000§f\uE013", "§7Erzeugt 4 §f\uE013§7 pro Sekunde").build());
+                                    .getBuilding(i)).setName("§6Venus").setLore("§f\uE013§7 pro Sekunde: 2", "", "§7§f\uE015§7 Kaufe §9Erde","§7Preis: 10.000§f\uE013", "§7Erzeugt 4 §f\uE013§7 pro Sekunde").build());
                     break;
                 case 3:
                     ngui.getInventory().setItem(slot, new ItemBuilder(Material.POPPED_CHORUS_FRUIT,3)
                             .setCustomModelData(PlanetUser.users.get(p.getUniqueId())
-                                    .getBuilding(i)).setName("§9Erde").setLore("§f\uE013§7 pro Sekunde: 4", "", "§7(Klicke) Kaufe §cMars","§7Preis: 32500§f\uE013", "§7Erzeugt 7 §f\uE013§7 pro Sekunde").build());
+                                    .getBuilding(i)).setName("§9Erde").setLore("§f\uE013§7 pro Sekunde: 4", "", "§7§f\uE015§7 Kaufe §cMars","§7Preis: 32.500§f\uE013", "§7Erzeugt 7 §f\uE013§7 pro Sekunde").build());
                     break;
                 case 4:
                     ngui.getInventory().setItem(slot, new ItemBuilder(Material.POPPED_CHORUS_FRUIT,4)
                             .setCustomModelData(PlanetUser.users.get(p.getUniqueId())
-                                    .getBuilding(i)).setName("§cMars").setLore("§f\uE013§7 pro Sekunde: 7", "", "§7(Klicke) Kaufe §eJupiter","§7Preis: 175000§f\uE013", "§7Erzeugt 11 §f\uE013§7 pro Sekunde").build());
+                                    .getBuilding(i)).setName("§cMars").setLore("§f\uE013§7 pro Sekunde: 7", "", "§7§f\uE015§7 Kaufe §eJupiter","§7Preis: 175.000§f\uE013", "§7Erzeugt 11 §f\uE013§7 pro Sekunde").build());
                     break;
                 case 5:
                     ngui.getInventory().setItem(slot, new ItemBuilder(Material.POPPED_CHORUS_FRUIT,5)
                             .setCustomModelData(PlanetUser.users.get(p.getUniqueId())
-                                    .getBuilding(i)).setName("§eJupiter").setLore("§f\uE013§7 pro Sekunde: 11", "", "§7(Klicke) Kaufe §6Saturn","§7Preis: 1250000§f\uE013", "§7Erzeugt 16 §f\uE013§7 pro Sekunde").build());
+                                    .getBuilding(i)).setName("§eJupiter").setLore("§f\uE013§7 pro Sekunde: 11", "", "§7§f\uE015§7 Kaufe §6Saturn","§7Preis: 1.250.000§f\uE013", "§7Erzeugt 16 §f\uE013§7 pro Sekunde").build());
                     break;
                 case 6:
                     ngui.getInventory().setItem(slot, new ItemBuilder(Material.POPPED_CHORUS_FRUIT,6)
                             .setCustomModelData(PlanetUser.users.get(p.getUniqueId())
-                                    .getBuilding(i)).setName("§6Saturn").setLore("§f\uE013§7 pro Sekunde: 16", "", "§7(Klicke) Kaufe §bUranus","§7Preis: 10000000§f\uE013", "§7Erzeugt 21 §f\uE013§7 pro Sekunde").build());
+                                    .getBuilding(i)).setName("§6Saturn").setLore("§f\uE013§7 pro Sekunde: 16", "", "§7§f\uE015§7 Kaufe §bUranus","§7Preis: 10.000.000§f\uE013", "§7Erzeugt 21 §f\uE013§7 pro Sekunde").build());
                     break;
                 case 7:
                     ngui.getInventory().setItem(slot, new ItemBuilder(Material.POPPED_CHORUS_FRUIT,7)
                             .setCustomModelData(PlanetUser.users.get(p.getUniqueId())
-                                    .getBuilding(i)).setName("§bUranus").setLore("§f\uE013§7 pro Sekunde: 21", "", "§7(Klicke) Kaufe §1Neptun","§7Preis: 50000000§f\uE013", "§7Erzeugt 28 §f\uE013§7 pro Sekunde").build());
+                                    .getBuilding(i)).setName("§bUranus").setLore("§f\uE013§7 pro Sekunde: 21", "", "§7§f\uE015§7 Kaufe §1Neptun","§7Preis: 50.000.000§f\uE013", "§7Erzeugt 28 §f\uE013§7 pro Sekunde").build());
                     break;
                 case 8:
                     ngui.getInventory().setItem(slot, new ItemBuilder(Material.POPPED_CHORUS_FRUIT,8)
@@ -86,10 +87,20 @@ public class PlanetMenu extends NGUI implements Listener {
             if(!e.isShiftClick()) {
                 int clickedSlot = e.getSlot();
                 switch (clickedSlot) {
-                    case 8 -> p.closeInventory();
-//                    case 49 -> PlanetMenu2.getGUI(p).open(p);
-                    case 49 -> send(p, "§cKommt später");
-                    default -> {
+                    case 8:
+                        p.closeInventory();
+                        break;
+                    case 49:
+                        if (RankManager.getRank(p.getUniqueId().toString()).equals("SPIELER")) {
+                            send(p, "§7Du benötigst einen Rang um auf diese Planeten zugreifen zu können.");
+                        } else {
+                            if (p.getCooldown(Material.DIAMOND_AXE) == 0) {
+                                PlanetMenu2.getGUI(p).open(p);
+                                p.setCooldown(Material.DIAMOND_AXE, 10);
+                            }
+                        }
+                        break;
+                    default:
                         if (Arrays.stream(buildingSlotsNormal).filter(x -> x == clickedSlot).toArray().length >= 1) {
                             PlanetUser user = PlanetUser.users.get(p.getUniqueId());
                             int x = 0;
@@ -114,7 +125,6 @@ public class PlanetMenu extends NGUI implements Listener {
                                 }
                             }
                         }
-                    }
                 }
             }
         }

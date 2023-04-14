@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import java.util.HashMap;
 
+import static de.nbhd.nevadyapi.messages.Message.send;
 import static de.nbhd.nevadyapi.messages.Message.sendActionbar;
 
 public class ClickListener implements Listener {
@@ -36,13 +37,17 @@ public class ClickListener implements Listener {
                         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
                             PlanetMenu.getGUI(e.getPlayer()).open(e.getPlayer());
                         } else if (e.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
+                            if (user.getPlunasPerClick() == 0.0) {
+                                send(p, "§7Du musst zuerst einen Planeten kaufen. Mache dafür einen §f\uE016 §7auf den Planeten.");
+                                return;
+                            }
                             if(!cps.containsKey(p.getName())) cps.put(p.getName(), 0);
                             cps.put(p.getName(), cps.get(p.getName())+1);
-                            if(cps.get(p.getName()) > 10) return;
+                            if(cps.get(p.getName()) > 7) return;
                             if(!addedPlunas.containsKey(p.getName())) addedPlunas.put(p.getName(), 0.0);
                             addedPlunas.put(p.getName(), addedPlunas.get(p.getName())+user.getPlunasPerClick());
                             lastClicked.put(p.getName(), System.currentTimeMillis()+2000L);
-                            sendActionbar(p, "§f\uE013 §l§d"+ PlanetInc.simplifyNumber(addedPlunas.get(p.getName())) + " §7(§b+" + PlanetInc.simplifyNumber(user.getPlunasPerClick()) + " pro Klick§7)");
+                            sendActionbar(p, "§f\uE013 §l§d"+ PlanetInc.simplifyNumber(addedPlunas.get(p.getName())) + " §7(§b+" + PlanetInc.simplifyNumber(user.getPlunasPerClick()) + "/Klick§7)");
                             if(user.getPlunasPerClick()+user.getPlunas() < Integer.MAX_VALUE) user.setPlunas(user.getPlunas() + user.getPlunasPerClick());
                             user.setClicks(user.getClicks()+1);
                         }

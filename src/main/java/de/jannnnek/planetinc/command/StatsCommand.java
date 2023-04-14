@@ -1,5 +1,6 @@
 package de.jannnnek.planetinc.command;
 
+import de.jannnnek.planetinc.PlanetInc;
 import de.jannnnek.planetinc.util.PlanetUser;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -33,23 +34,27 @@ public class StatsCommand implements TabExecutor {
                 UUID uuid = target.getUniqueId();
                 if (PlanetUser.users.containsKey(uuid)) {
                     PlanetUser user = PlanetUser.users.get(uuid);
-                    send(p, "§7Statistiken von §d" + target.getName() + "§7:");
-                    send(p, "§7Klicks: §b" + user.getClicks());
-                    send(p, "§7Anzahl gekaufter Planeten: §b" + user.getBuildings());
-                    send(p, "§f\uE013§7 pro Klick: §b" + user.getPlunasPerClick());
-                    send(p, "§f\uE013§7 pro Sekunde: §b" + user.getPlunasPerSecond());
+                    send(p, " ");
+                    send(p, "§7Statistiken von §b" + target.getName() + "§7:");
+                    send(p, "§f\uE013§7: §b" + PlanetInc.simplifyNumber(user.getClicks()));
+                    send(p, "§7Anzahl gekaufter Planeten: §b" + PlanetInc.simplifyNumber(user.getBuildings()));
+                    send(p, "§f\uE013§7/Klick: §b" + PlanetInc.simplifyNumber(user.getPlunasPerClick()));
+                    send(p, "§f\uE013§7/s: §b" + PlanetInc.simplifyNumber(user.getPlunasPerSecond()));
+                    send(p, " ");
                 } else {
-                    send(p, "§7Der Spieler §d" + args[0] + " §7hat noch nie PlanetInc gespielt.");
+                    send(p, "§7Der Spieler §b" + args[0] + " §7hat noch nie §dPlanet§fInc§7 gespielt.");
                 }
             } else if (args.length == 0) {
                 PlanetUser user = PlanetUser.users.get(p.getUniqueId());
+                send(p, " ");
                 send(p, "§7Deine Statistiken:");
-                send(p, "§7Klicks: §b" + user.getClicks());
-                send(p, "§7Anzahl gekaufter Planeten: §b" + user.getBuildings());
-                send(p, "§f\uE013§7 pro Klick: §b" + user.getPlunasPerClick());
-                send(p, "§f\uE013§7 pro Sekunde: §b" + user.getPlunasPerSecond());
+                send(p, "§f\uE013§7: §b" + PlanetInc.simplifyNumber(user.getClicks()));
+                send(p, "§7Anzahl gekaufter Planeten: §b" + PlanetInc.simplifyNumber(user.getBuildings()));
+                send(p, "§f\uE013§7/Klick: §b" + PlanetInc.simplifyNumber(user.getPlunasPerClick()));
+                send(p, "§f\uE013§7/s: §b" + PlanetInc.simplifyNumber(user.getPlunasPerSecond()));
+                send(p, " ");
             } else {
-                send(p, "§7Bitte nutze §d/stats <Spieler>");
+                send(p, "§7Bitte nutze §b/stats <Spieler>");
             }
             p.setCooldown(Material.DIAMOND_HOE, 60);
         }
