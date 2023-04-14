@@ -114,12 +114,16 @@ public class PlanetMenu2 extends NGUI implements Listener {
                                 buyPlanet(p, buildingSlotsRank2, clickedSlot);
                             } else {
                                 send(p, "§7Du benötigst mindestens " + RankManager.Ranks.valueOf("STAR").prefix + " §7um diesen Planeten kaufen zu können.");
+                                p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_HURT, 0.5f, 1);
+                                p.closeInventory();
                             }
                         } else if (Arrays.stream(buildingSlotsRank3).filter(x -> x == clickedSlot).toArray().length >= 1) {
                             if (!RankManager.getRank(p.getUniqueId().toString()).equals("SPIELER") && !RankManager.getRank(p.getUniqueId().toString()).equals("MOON") && !RankManager.getRank(p.getUniqueId().toString()).equals("STAR")) {
                                 buyPlanet(p, buildingSlotsRank3, clickedSlot);
                             } else {
                                 send(p, "§7Du benötigst mindestens " + RankManager.Ranks.valueOf("SUN").prefix + " §7um diesen Planeten kaufen zu können.");
+                                p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_HURT, 0.5f, 1);
+                                p.closeInventory();
                             }
                         }
                         break;
