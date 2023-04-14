@@ -1,16 +1,20 @@
 package de.jannnnek.planetinc.util;
 
 import de.jannnnek.planetinc.planet.Planet;
+import de.nbhd.nevadyapi.mysql.ranks.RankManager;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static de.nbhd.nevadyapi.messages.Message.sendActionbar;
+
 public class PlanetUser {
 
     public static Map<UUID, PlanetUser> users = new HashMap<>();
 
-    private float plunas;
+    private double plunas;
     private int clicks;
     private int buildings;
     private int building0, building1, building2, building3, building4, building5, building6, building7, building8, building9,
@@ -41,14 +45,16 @@ public class PlanetUser {
             "building49", "building50", "building51", "building52", "building53", "building54", "building55"};
 
     private final int clickMultiplikator = 5;
+    private UUID uuid;
 
 
     public PlanetUser(UUID uuid){
         f = new FileBuilder("plugins//PlanetInc//playerdata//", uuid.toString() + ".yml");
 
-        this.plunas = f.exist() ? f.getInt("Plunas") : 2500;
+        this.plunas = f.exist() ? f.getDouble("Plunas") : 2500;
         this.clicks = f.exist() ? f.getInt("Klicks") : 0;
         this.buildings = f.exist() ? f.getInt("Buildings") : 0;
+        this.uuid = uuid;
         for (int i = 0; i < buildingInt.length; i++) {
             this.buildingInt[i] = f.exist() ? f.getInt(buildingString[i]) : 0;
         }
@@ -66,11 +72,11 @@ public class PlanetUser {
         f.save();
     }
 
-    public float getPlunas(){
+    public double getPlunas(){
         return this.plunas;
     }
 
-    public void setPlunas(float plunas) {
+    public void setPlunas(double plunas) {
         this.plunas = plunas;
     }
 
@@ -108,16 +114,16 @@ public class PlanetUser {
         return max;
     }
 
-    public int getPlunasPerClick() {
+    public double getPlunasPerClick() {
         for (Planet planet : Planet.values()) {
             if (getHighestBuilding() == planet.getLevel()) {
-                return planet.getProduce()*clickMultiplikator;
+                return planet.getProduce()*clickMultiplikator*getRankMultiplier();
             }
         }
         return 0;
     }
 
-    public int getPlunasPerSecond() {
+    public double getPlunasPerSecond() {
         int pps = 0;
         for (int buildingWithLevel : buildingInt) {
             for (Planet planet : Planet.values()) {
@@ -126,7 +132,22 @@ public class PlanetUser {
                 }
             }
         }
-        return pps;
+        return (pps*getRankMultiplier());
+    }
+
+    private double getRankMultiplier() {
+        String rang = RankManager.getRank(uuid.toString());
+        switch (rang) {
+            case "ADMIN", "DEV", "TEAM", "SUN":
+                return 1.6;
+            case "STAR":
+                return 1.4;
+            case "MOON":
+                return 1.2;
+            case "SPIELER":
+                return 1.0;
+        }
+        return 1.0f;
     }
 
 }

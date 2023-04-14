@@ -59,7 +59,9 @@ public class EventListener implements Listener {
             if (e.getPlayer().getLocation().clone().getBlock().getType().equals(Material.DAYLIGHT_DETECTOR)) {
                 Location loc = findNextBlock(e.getPlayer().getLocation().clone().subtract(0, 1, 0), Material.DAYLIGHT_DETECTOR, true);
                 if (loc != null) {
-                    e.getPlayer().teleport(loc.clone().add(0.5, 0.375, 0.5));
+                    Location newLoc = loc.clone();
+                    newLoc.setYaw(-130.0f);
+                    e.getPlayer().teleport(newLoc.add(0.5, 0.375, 0.5));
                     sendTitleWithTimesWithSound(e.getPlayer(), "", "§c↓", 0, 40, 10, Sound.ENTITY_PLAYER_LEVELUP);
                 } else {
                     sendTitleWithTimesWithSound(e.getPlayer(), "§7", "§4❌", 0, 40, 10, Sound.BLOCK_NOTE_BLOCK_BASS);
@@ -96,7 +98,9 @@ public class EventListener implements Listener {
             if (e.getTo().clone().subtract(0, 1, 0).getBlock().getType().equals(Material.DAYLIGHT_DETECTOR)) {
                 Location loc = findNextBlock(e.getTo().clone().add(0, 2, 0), Material.DAYLIGHT_DETECTOR, false);
                 if (loc != null) {
-                    e.getPlayer().teleport(loc.clone().add(0.5, 0.375, 0.5));
+                    Location newLoc = loc.clone();
+                    newLoc.setYaw(-130.0f);
+                    e.getPlayer().teleport(newLoc.add(0.5, 0.375, 0.5));
                     sendTitleWithTimesWithSound(e.getPlayer(), "§7", "§a↑", 0, 40, 10, Sound.ENTITY_PLAYER_LEVELUP);
                 } else {
                     sendTitleWithTimesWithSound(e.getPlayer(), "§7", "§4❌", 0, 40, 10, Sound.BLOCK_NOTE_BLOCK_BASS);

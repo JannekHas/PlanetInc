@@ -124,20 +124,20 @@ public class PlanetInc extends JavaPlugin {
         }
     }
 
-    public void setScoreboard(Player p) {
+    public static void setScoreboard(Player p) {
         Scoreboard scoreboard = p.getScoreboard();
         Objective objective = scoreboard.getObjective("dummy");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.setDisplayName("§dPlanet§fInc");
         objective.getScore("§d").setScore(9);
-        objective.getScore("§7Deine Plunas: ").setScore(8);
-        objective.getScore(" §f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunas())).setScore(7);
+        objective.getScore("§7Plunas: ").setScore(8);
+        objective.getScore("§7» §f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunas())).setScore(7);
         objective.getScore("§c").setScore(6);
-        objective.getScore("§7Deine Plunas pro Sekunde: ").setScore(5);
-        objective.getScore(" §6§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerSecond())).setScore(4);
+        objective.getScore("§7Plunas/s: ").setScore(5);
+        objective.getScore("§7» §6§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerSecond())).setScore(4);
         objective.getScore("§a").setScore(3);
-        objective.getScore("§7Deine Plunas pro Klick: ").setScore(2);
-        objective.getScore(" §5§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerClick())).setScore(1);
+        objective.getScore("§7Plunas/Klick: ").setScore(2);
+        objective.getScore("§7» §5§f\uE013 §b"+ PlanetInc.simplifyNumber(PlanetUser.users.get(p.getUniqueId()).getPlunasPerClick())).setScore(1);
         objective.getScore("§b").setScore(0);
     }
 
@@ -159,7 +159,7 @@ public class PlanetInc extends JavaPlugin {
         return instance;
     }
 
-    public static String simplifyNumber(float number) {
+    public static String simplifyNumber(double number) {
         NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
         return nf.format(number);
     }

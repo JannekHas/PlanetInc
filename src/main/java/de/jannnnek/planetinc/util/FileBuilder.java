@@ -36,6 +36,10 @@ public class FileBuilder {
         return c.getInt(ValuePath);
     }
 
+    public double getDouble(String ValuePath) {
+        return c.getDouble(ValuePath);
+    }
+
     public String getString(String ValuePath){
         return c.getString(ValuePath);
     }

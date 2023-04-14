@@ -32,7 +32,7 @@ public class RankingTask extends BukkitRunnable {
     }
 
     public static Map<Integer, String> getPlunaRanking() {
-        HashMap<String, Float> map = new HashMap<>();
+        HashMap<String, Double> map = new HashMap<>();
         HashMap<Integer, String> finished = new HashMap<>();
 
         for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
@@ -47,9 +47,9 @@ public class RankingTask extends BukkitRunnable {
             }
         }
 
-        Map<String, Float> sortedMap =
+        Map<String, Double> sortedMap =
                 map.entrySet().stream()
-                        .sorted(Map.Entry.<String, Float>comparingByValue().reversed())
+                        .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
                         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                                 (e1, e2) -> e1, LinkedHashMap::new));
         final int[] count = {1};
