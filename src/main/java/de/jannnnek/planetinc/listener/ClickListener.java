@@ -1,7 +1,7 @@
 package de.jannnnek.planetinc.listener;
 
 import de.jannnnek.planetinc.PlanetInc;
-import de.jannnnek.planetinc.gui.PlanetMenu;
+import de.jannnnek.planetinc.gui.upgrade.PlanetMenu;
 import de.jannnnek.planetinc.util.PlanetUser;
 import org.bukkit.Location;
 import org.bukkit.Material;

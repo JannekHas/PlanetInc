@@ -1,6 +1,8 @@
-package de.jannnnek.planetinc.gui;
+package de.jannnnek.planetinc.gui.upgrade;
 
 import de.jannnnek.planetinc.PlanetInc;
+import de.jannnnek.planetinc.gui.ItemBuilder;
+import de.jannnnek.planetinc.gui.NGUI;
 import de.jannnnek.planetinc.planet.Planet;
 import de.jannnnek.planetinc.util.PlanetUser;
 import de.nbhd.nevadyapi.mysql.ranks.RankManager;
