@@ -169,8 +169,14 @@ public class PlanetInc extends JavaPlugin {
     }
 
     public static String simplifyNumber(double number) {
+        number = roundDouble(number);
         NumberFormat nf = NumberFormat.getInstance(Locale.GERMANY);
         return nf.format(number);
+    }
+
+    private static double roundDouble (double value) {
+        int scale = (int) Math.pow(10, 1);
+        return (double) Math.round(value * scale) / scale;
     }
 
     public static YamlConfiguration getYamlConfiguration() {
