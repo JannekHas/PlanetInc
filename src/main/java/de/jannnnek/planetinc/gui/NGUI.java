@@ -77,4 +77,8 @@ public class NGUI {
         p.playSound(p.getLocation(), Sound.BLOCK_BARREL_OPEN, 0.5f, 1);
         Bukkit.getPluginManager().callEvent(new PlayerOpenNGUI(p.getName(), p.openInventory(getInventory())));
     }
+
+    public void openQuiet(Player p) {
+        Bukkit.getPluginManager().callEvent(new PlayerOpenNGUI(p.getName(), p.openInventory(getInventory())));
+    }
 }

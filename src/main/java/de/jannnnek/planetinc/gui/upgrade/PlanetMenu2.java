@@ -162,7 +162,7 @@ public class PlanetMenu2 extends NGUI implements Listener {
                 user.setBuilding(buildingNumber, user.getBuilding(buildingNumber) + 1);
                 user.setBuildings(user.getBuildings()+1);
                 p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 3.0F, 1.0F);
-                PlanetMenu2.getGUI(p).open(p);
+                PlanetMenu2.getGUI(p).openQuiet(p);
             }
             else {
                 send(p, "§7Für diesen Planeten fehlen dir §b" + PlanetInc.simplifyNumber(price- user.getPlunas()) + " §f\uE013");
