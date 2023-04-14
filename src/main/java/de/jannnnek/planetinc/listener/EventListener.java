@@ -3,6 +3,9 @@ package de.jannnnek.planetinc.listener;
 import de.jannnnek.planetinc.PlanetInc;
 import de.jannnnek.planetinc.command.BuildCommand;
 import de.jannnnek.planetinc.command.SpawnCommand;
+import de.jannnnek.planetinc.util.PlanetUser;
+import de.nbhd.nevadyapi.mysql.ranks.RankManager;
+import de.nbhd.nevadyapi.npcs.Conversation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,10 +23,7 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.BlockInventoryHolder;
@@ -190,6 +190,18 @@ public class EventListener implements Listener {
                     return;
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onChat(PlayerChatEvent e) {
+        e.setCancelled(true);
+        Player p = e.getPlayer();
+        RankManager.Ranks ranks = RankManager.Ranks.valueOf(RankManager.getRank(p.getUniqueId().toString()));
+        String format = ranks.prefix + p.getName() + " §8: §7" + e.getMessage();
+        p.sendMessage(format);
+        for (Player all : Bukkit.getOnlinePlayers().stream().filter(_player -> !_player.equals(p)).toList()) {
+            all.sendMessage(format);
         }
     }
 
