@@ -1,5 +1,6 @@
 package de.jannnnek.planetinc.gui;
 
+import de.jannnnek.planetinc.PlanetInc;
 import de.jannnnek.planetinc.planet.Planet;
 import de.jannnnek.planetinc.util.PlanetUser;
 import de.nbhd.nevadyapi.mysql.ranks.RankManager;
@@ -122,6 +123,9 @@ public class PlanetMenu extends NGUI implements Listener {
                                     user.setBuilding(buildingNumber, user.getBuilding(buildingNumber) + 1);
                                     user.setBuildings(user.getBuildings()+1);
                                     PlanetMenu.getGUI(p).open(p);
+                                } else {
+                                    send(p, "§7Für diesen Planeten fehlen dir §b" + PlanetInc.simplifyNumber(price- user.getPlunas()) + " §f\uE013");
+                                    p.closeInventory();
                                 }
                             }
                         }

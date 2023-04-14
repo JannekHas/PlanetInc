@@ -1,11 +1,16 @@
 package de.jannnnek.planetinc.gui;
 
+import de.jannnnek.planetinc.PlanetInc;
+import de.jannnnek.planetinc.planet.Planet;
 import de.jannnnek.planetinc.util.PlanetUser;
+import de.nbhd.nevadyapi.mysql.ranks.RankManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+
+import java.util.Arrays;
 
 import static de.nbhd.nevadyapi.messages.Message.send;
 
@@ -18,6 +23,7 @@ public class PlanetMenu2 extends NGUI implements Listener {
     static int[] buildingSlotsRank2 = {19,20,21,22,23,24,25};
     static int[] buildingSlotsRank3 = {28,29,30,31,32,33,34,37,38,39,40,41,42,43};
     static int[][] buildingSlotList = {buildingSlotsRank1, buildingSlotsRank2, buildingSlotsRank3};
+    int buildingNumber;
 
     public static String guiName = "§a§f\uE012\uE012\uE012\uE012\uE012\uE012\uE012\uE012\uE014";
     public static NGUI getGUI(Player p) {
@@ -25,7 +31,6 @@ public class PlanetMenu2 extends NGUI implements Listener {
         ngui.getInventory().setItem(8, new ItemBuilder(Material.POPPED_CHORUS_FRUIT).setName("§cSchließen").setCustomModelData(9).build());
         int i = 28;
         for (int[] slotList : buildingSlotList) {
-            // Check ob der Spieler den Mindestrang für die Liste hat
             for (int slot : slotList) {
                 switch (PlanetUser.users.get(p.getUniqueId()).getBuilding(i)) {
                     case 0:
@@ -99,18 +104,61 @@ public class PlanetMenu2 extends NGUI implements Listener {
                         }
                         break;
                     default:
-//                        if (Arrays.stream(buildingSlotsRank1).filter(x -> x == clickedSlot).toArray().length >= 1) {
-//                            // Building kaufen, wenn Rank
-//                        } else if (Arrays.stream(buildingSlotsRank2).filter(x -> x == clickedSlot).toArray().length >= 1) {
-//                            // Building kaufen, wenn Rank
-//                        } else if (Arrays.stream(buildingSlotsRank3).filter(x -> x == clickedSlot).toArray().length >= 1) {
-//                            // Building kaufen, wenn Rank
-//                        }
-                        // Gebäude Stats
-                        send(p,"§7Diese Planeten werden bald freigeschaltet.");
-                        p.closeInventory();
+                        if (Arrays.stream(buildingSlotsRank1).filter(x -> x == clickedSlot).toArray().length >= 1) {
+                            if (!RankManager.getRank(p.getUniqueId().toString()).equals("SPIELER")) {
+                                buyPlanet(p, buildingSlotsRank1, clickedSlot);
+                            }
+                        } else if (Arrays.stream(buildingSlotsRank2).filter(x -> x == clickedSlot).toArray().length >= 1) {
+                            if (!RankManager.getRank(p.getUniqueId().toString()).equals("SPIELER") && !RankManager.getRank(p.getUniqueId().toString()).equals("MOON")) {
+                                buyPlanet(p, buildingSlotsRank2, clickedSlot);
+                            } else {
+                                send(p, "§7Du benötigst mindestens " + RankManager.Ranks.valueOf("STAR").prefix + " §7um diesen Planeten kaufen zu können.");
+                            }
+                        } else if (Arrays.stream(buildingSlotsRank3).filter(x -> x == clickedSlot).toArray().length >= 1) {
+                            if (!RankManager.getRank(p.getUniqueId().toString()).equals("SPIELER") && !RankManager.getRank(p.getUniqueId().toString()).equals("MOON") && !RankManager.getRank(p.getUniqueId().toString()).equals("STAR")) {
+                                buyPlanet(p, buildingSlotsRank3, clickedSlot);
+                            } else {
+                                send(p, "§7Du benötigst mindestens " + RankManager.Ranks.valueOf("SUN").prefix + " §7um diesen Planeten kaufen zu können.");
+                            }
+                        }
                         break;
                 }
+            }
+        }
+    }
+
+    private void buyPlanet(Player p, int[] buildingSlotsList, int clickedSlot) {
+        PlanetUser user = PlanetUser.users.get(p.getUniqueId());
+        int x;
+        if (Arrays.equals(buildingSlotsList, buildingSlotsRank1)) {
+            x = 28;
+        } else if (Arrays.equals(buildingSlotsList, buildingSlotsRank2)) {
+            x = 35;
+        } else {
+            x = 42;
+        }
+        for (int i : buildingSlotsList) {
+            if (clickedSlot == i) {
+                buildingNumber = x;
+            }
+            x++;
+        }
+        int price = 0;
+        for (Planet planet : Planet.values()) {
+            if ((user.getBuilding(buildingNumber) + 1) == planet.getLevel()) {
+                price = planet.getCosts();
+            }
+        }
+        if (price != 0) {
+            if (user.getPlunas() >= price) {
+                user.setPlunas(user.getPlunas() - price);
+                user.setBuilding(buildingNumber, user.getBuilding(buildingNumber) + 1);
+                user.setBuildings(user.getBuildings()+1);
+                PlanetMenu2.getGUI(p).open(p);
+            }
+            else {
+                send(p, "§7Für diesen Planeten fehlen dir §b" + PlanetInc.simplifyNumber(price- user.getPlunas()) + " §f\uE013");
+                p.closeInventory();
             }
         }
     }
