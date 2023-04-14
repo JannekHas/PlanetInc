@@ -36,10 +36,11 @@ public class StatsCommand implements TabExecutor {
                     PlanetUser user = PlanetUser.users.get(uuid);
                     send(p, " ");
                     send(p, "§7Statistiken von §b" + target.getName() + "§7:");
-                    send(p, "§f\uE013§7: §b" + PlanetInc.simplifyNumber(user.getClicks()));
-                    send(p, "§7Anzahl gekaufter Planeten: §b" + PlanetInc.simplifyNumber(user.getBuildings()));
-                    send(p, "§f\uE013§7/Klick: §b" + PlanetInc.simplifyNumber(user.getPlunasPerClick()));
-                    send(p, "§f\uE013§7/s: §b" + PlanetInc.simplifyNumber(user.getPlunasPerSecond()));
+                    send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getPlunas()) + " §f\uE013");
+                    send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getClicks()) + " §f\uE015");
+                    send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getPlunasPerSecond()) + " §f\uE013§7/s");
+                    send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getPlunasPerClick()) + " §f\uE013§7/Klick");
+                    send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getBuildings()) + " §7Planeten gekauft");
                     send(p, " ");
                 } else {
                     send(p, "§7Der Spieler §b" + args[0] + " §7hat noch nie §dPlanet§fInc§7 gespielt.");
@@ -48,10 +49,11 @@ public class StatsCommand implements TabExecutor {
                 PlanetUser user = PlanetUser.users.get(p.getUniqueId());
                 send(p, " ");
                 send(p, "§7Deine Statistiken:");
-                send(p, "§f\uE013§7: §b" + PlanetInc.simplifyNumber(user.getClicks()));
-                send(p, "§7Anzahl gekaufter Planeten: §b" + PlanetInc.simplifyNumber(user.getBuildings()));
-                send(p, "§f\uE013§7/Klick: §b" + PlanetInc.simplifyNumber(user.getPlunasPerClick()));
-                send(p, "§f\uE013§7/s: §b" + PlanetInc.simplifyNumber(user.getPlunasPerSecond()));
+                send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getPlunas()) + " §f\uE013");
+                send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getClicks()) + " §f\uE015");
+                send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getPlunasPerSecond()) + " §f\uE013§7/s");
+                send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getPlunasPerClick()) + " §f\uE013§7/Klick");
+                send(p, "§7» §b" + PlanetInc.simplifyNumber(user.getBuildings()) + " §7Planeten gekauft");
                 send(p, " ");
             } else {
                 send(p, "§7Bitte nutze §b/stats <Spieler>");
