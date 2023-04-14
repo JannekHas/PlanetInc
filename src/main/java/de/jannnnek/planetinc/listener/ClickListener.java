@@ -3,7 +3,6 @@ package de.jannnnek.planetinc.listener;
 import de.jannnnek.planetinc.PlanetInc;
 import de.jannnnek.planetinc.gui.PlanetMenu;
 import de.jannnnek.planetinc.util.PlanetUser;
-import de.nbhd.nevadyapi.mysql.ranks.RankManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -59,6 +58,7 @@ public class ClickListener implements Listener {
 
     @EventHandler
     public void onSwap(PlayerSwapHandItemsEvent e) {
+        e.setCancelled(true);
         PlanetMenu.getGUI(e.getPlayer()).open(e.getPlayer());
     }
 
