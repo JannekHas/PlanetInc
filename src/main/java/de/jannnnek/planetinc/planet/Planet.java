@@ -45,4 +45,12 @@ public enum Planet {
     public int getLevel() {
         return level;
     }
+
+    public int getCustomModelData() {
+        return customModelData;
+    }
+
+    public String[] getLore() {
+        return lore;
+    }
 }

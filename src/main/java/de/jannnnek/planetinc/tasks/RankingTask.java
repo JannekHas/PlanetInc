@@ -84,17 +84,9 @@ public class RankingTask extends BukkitRunnable {
         HashMap<String, Integer> map = new HashMap<>();
         HashMap<Integer, String> finished = new HashMap<>();
 
-        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-            if(PlanetUser.users.containsKey(player.getUniqueId())) {
-                map.put(player.getName(), PlanetUser.users.get(player.getUniqueId()).getClicks());
-            }
-        }
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if(PlanetUser.users.containsKey(player.getUniqueId())) {
-                map.put(player.getName(), PlanetUser.users.get(player.getUniqueId()).getClicks());
-            }
-        }
+        PlanetUser.users.forEach((uuid, planetUser) -> {
+            map.put(planetUser.getName(), planetUser.getClicks());
+        });
 
         Map<String, Integer> sortedMap =
                 map.entrySet().stream()
@@ -113,20 +105,9 @@ public class RankingTask extends BukkitRunnable {
         HashMap<String, Double> map = new HashMap<>();
         HashMap<Integer, String> finished = new HashMap<>();
 
-        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-            if (RankManager.getRank(player.getUniqueId().toString()).equals("SPIELER")) {
-                if(PlanetUser.users.containsKey(player.getUniqueId())) {
-                    map.put(player.getName(), PlanetUser.users.get(player.getUniqueId()).getPlunas());
-                }
-            }
-        }
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (RankManager.getRank(player.getUniqueId().toString()).equals("SPIELER")) {
-                if(PlanetUser.users.containsKey(player.getUniqueId())) {
-                    map.put(player.getName(), PlanetUser.users.get(player.getUniqueId()).getPlunas());
-                }
-            }
+        for (UUID uuid : PlanetUser.users.keySet().stream().filter(uuid -> RankManager.getRank(uuid.toString()).equals("SPIELER")).toList()) {
+            PlanetUser planetUser = PlanetUser.users.get(uuid);
+            map.put(planetUser.getName(), planetUser.getPlunas());
         }
 
         Map<String, Double> sortedMap =

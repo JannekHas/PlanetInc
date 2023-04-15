@@ -72,7 +72,6 @@ public class PlanetInc extends JavaPlugin {
         getCommand("setspawn").setExecutor(new SetSpawnCommand());
         getCommand("stats").setExecutor(new StatsCommand());
         getCommand("stats").setTabCompleter(new StatsCommand());
-        getCommand("hub").setExecutor(new HubCommand());
         getCommand("reset").setExecutor(new ResetCommand());
         getCommand("reset").setTabCompleter(new ResetCommand());
 
@@ -162,6 +161,51 @@ public class PlanetInc extends JavaPlugin {
         holo.setTitle("§f\uE015 §7Plunas sammeln");
         holo.addLine("§f\uE016 §7Planeten kaufen");
     }
+
+    public void setAdvancement() {
+        ultimateAdvancementAPI = UltimateAdvancementAPI.getInstance(this);
+        AdvancementTab advancementTab = ultimateAdvancementAPI.createAdvancementTab("planetinc");
+
+        RootAdvancement rootAdvancement = new RootAdvancement(
+                advancementTab, "root", new AdvancementDisplay(Material.FIREWORK_ROCKET, "PlanetInc", AdvancementFrameType.CHALLENGE,
+                false, false, 0, 0, "Erfolge für PlanetInc"), "textures/block/black_wool.png");
+
+        TenClickAdvancement tenClickAdvancement = new TenClickAdvancement(
+                "tenclick", new AdvancementDisplay(Material.PAPER, "X", AdvancementFrameType.TASK,
+                true, true, 1, 0, "X"), rootAdvancement, 1);
+        ThousandClickAdvancement thousandClickAdvancement = new ThousandClickAdvancement(
+                "thousandclick", new AdvancementDisplay(Material.PAPER, "1001 Nacht", AdvancementFrameType.TASK,
+                true, true, 2, 0, "Die Zeit verfliegt wie im Märchen"), rootAdvancement, 1);
+        TenThousandClickAdvancement tenThousandClickAdvancement = new TenThousandClickAdvancement(
+                "tenthousandclick", new AdvancementDisplay(Material.PAPER, "Hilferuf ins All", AdvancementFrameType.TASK,
+                true, true, 3, 0, "Du hast einen Hilferuf mit 10700kHz ins All gesendet"), rootAdvancement, 1);
+        FiftyThousandClickAdvancement fiftyThousandClickAdvancement = new FiftyThousandClickAdvancement(
+                "fiftythousandclick", new AdvancementDisplay(Material.PAPER, "Mathegenie", AdvancementFrameType.TASK,
+                true, true, 4, 0, "1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6"), rootAdvancement, 1);
+        HundredThousandClickAdvancement hundredThousandClickAdvancement = new HundredThousandClickAdvancement(
+                "hundredthousandclick", new AdvancementDisplay(Material.PAPER, "Klickprimus", AdvancementFrameType.TASK,
+                true, true, 5, 0, "Du hast die 10000ste Primzahl erreicht"), rootAdvancement, 1);
+        FiveHundredThousandClickAdvancement fiveHundredThousandClickAdvancement = new FiveHundredThousandClickAdvancement(
+                "fivehundredthousandclick", new AdvancementDisplay(Material.PAPER, "Autoklicker 2.0", AdvancementFrameType.TASK,
+                true, true, 6, 0, "Mach die Hacks aus!"), rootAdvancement, 1);
+        MillionClickAdvancement millionClickAdvancement = new MillionClickAdvancement(
+                "millionclick", new AdvancementDisplay(Material.PAPER, "Zeit für eine neues Maus", AdvancementFrameType.TASK,
+                true, true, 7, 0, "maus.plunamc.de"), rootAdvancement, 1);
+
+        SevenPlanetsAdvancement sevenPlanetsAdvancement = new SevenPlanetsAdvancement(
+                "sevenplanet", new AdvancementDisplay(Material.SUGAR_CANE, "7 Planeten", AdvancementFrameType.TASK,
+                true, true, 1, 1, "Auf Planet 7 im siebten Himmel"), rootAdvancement, 1);
+
+        advancementTab.registerAdvancements(rootAdvancement, tenClickAdvancement, thousandClickAdvancement,
+                tenThousandClickAdvancement, fiftyThousandClickAdvancement, hundredThousandClickAdvancement,
+                fiveHundredThousandClickAdvancement, millionClickAdvancement, sevenPlanetsAdvancement);
+
+        advancementTab.getEventManager().register(advancementTab, PlayerLoadingCompletedEvent.class, event -> {
+            advancementTab.showTab(event.getPlayer());
+            advancementTab.grantRootAdvancement(event.getPlayer());
+        });
+    }
+
 
     public static void sendPlayerToServer(Player p, String server) {
         try {

@@ -33,15 +33,6 @@ commands:
     description: Zeige Statistiken an
     permission: pluna.stats
 
-  hub:
-    description: Gehe zur Lobby zurück
-    permission: pluna.hub
-    aliases:
-      - lobby
-      - leave
-      - l
-      - quit
-
   reset:
     description: Setze die Spielerdaten eines Spielers zurück
     permission: pluna.reset

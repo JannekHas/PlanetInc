@@ -53,6 +53,7 @@ public class PlanetUser {
     public PlanetUser(UUID uuid){
         f = new FileBuilder("plugins//PlanetInc//playerdata//", uuid.toString() + ".yml");
 
+        this.name = Bukkit.getOfflinePlayer(uuid).getName();
         this.plunas = f.exist() ? f.getDouble("Plunas") : 2500;
         this.clicks = f.exist() ? f.getInt("Klicks") : 0;
         this.buildings = f.exist() ? f.getInt("Buildings") : 0;
