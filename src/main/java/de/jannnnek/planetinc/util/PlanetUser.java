@@ -47,6 +47,7 @@ public class PlanetUser {
 
     private final int clickMultiplikator = 5;
     private UUID uuid;
+    private String name;
 
 
     public PlanetUser(UUID uuid){
@@ -100,6 +101,8 @@ public class PlanetUser {
     public int getBuilding(int building) {
         return this.buildingInt[building];
     }
+
+    public String getName() { return name; }
 
     public void setBuilding(int building, int level) {
         this.buildingInt[building] = level;

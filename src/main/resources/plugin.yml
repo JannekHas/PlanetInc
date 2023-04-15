@@ -3,6 +3,8 @@ version: 1.0
 author: Jannnnek
 main: de.jannnnek.planetinc.PlanetInc
 load: POSTWORLD
+depend:
+  - UltimateAdvancementAPI
 api-version: 1.19
 website: plunamc.com
 

@@ -1,8 +1,10 @@
 package de.jannnnek.planetinc.listener;
 
 import de.jannnnek.planetinc.PlanetInc;
+import de.jannnnek.planetinc.advancements.events.PlayerClickPlanetEvent;
 import de.jannnnek.planetinc.gui.upgrade.PlanetMenu;
 import de.jannnnek.planetinc.util.PlanetUser;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -49,6 +51,7 @@ public class ClickListener implements Listener {
                             sendActionbar(p, "§f\uE013 §l§d"+ PlanetInc.simplifyNumber(addedPlunas.get(p.getName())) + " §7(§b+" + PlanetInc.simplifyNumber(user.getPlunasPerClick()) + "/Klick§7)");
                             if(user.getPlunasPerClick()+user.getPlunas() < Integer.MAX_VALUE) user.setPlunas(user.getPlunas() + user.getPlunasPerClick());
                             user.setClicks(user.getClicks()+1);
+                            Bukkit.getPluginManager().callEvent(new PlayerClickPlanetEvent(user));
                         }
                     }
                 }

@@ -1,5 +1,13 @@
 package de.jannnnek.planetinc;
 
+import com.fren_gor.ultimateAdvancementAPI.AdvancementTab;
+import com.fren_gor.ultimateAdvancementAPI.UltimateAdvancementAPI;
+import com.fren_gor.ultimateAdvancementAPI.advancement.RootAdvancement;
+import com.fren_gor.ultimateAdvancementAPI.advancement.display.AdvancementDisplay;
+import com.fren_gor.ultimateAdvancementAPI.advancement.display.AdvancementFrameType;
+import com.fren_gor.ultimateAdvancementAPI.events.PlayerLoadingCompletedEvent;
+import de.jannnnek.planetinc.advancements.building.SevenPlanetsAdvancement;
+import de.jannnnek.planetinc.advancements.click.*;
 import de.jannnnek.planetinc.command.*;
 import de.jannnnek.planetinc.gui.GuiListener;
 import de.jannnnek.planetinc.listener.ClickListener;
@@ -16,6 +24,7 @@ import de.jannnnek.planetinc.util.PlanetUser;
 import de.nbhd.nevadyapi.messages.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -44,9 +53,12 @@ public class PlanetInc extends JavaPlugin {
     private static YamlConfiguration yamlConfiguration;
     public static boolean serverStarting = false;
 
+    public static UltimateAdvancementAPI ultimateAdvancementAPI;
+
     @Override
     public void onEnable() {
         serverStarting = true;
+        setAdvancement();
         getServer().getPluginManager().registerEvents(new ConnectionListener(), this);
         getServer().getPluginManager().registerEvents(new HotbarListener(), this);
         getServer().getPluginManager().registerEvents(new PlanetJoin(), this);
@@ -63,6 +75,7 @@ public class PlanetInc extends JavaPlugin {
         getCommand("hub").setExecutor(new HubCommand());
         getCommand("reset").setExecutor(new ResetCommand());
         getCommand("reset").setTabCompleter(new ResetCommand());
+
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         instance = this;
 

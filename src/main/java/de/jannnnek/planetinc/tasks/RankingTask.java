@@ -13,6 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class RankingTask extends BukkitRunnable {
@@ -62,17 +63,9 @@ public class RankingTask extends BukkitRunnable {
         HashMap<String, Double> map = new HashMap<>();
         HashMap<Integer, String> finished = new HashMap<>();
 
-        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-            if(PlanetUser.users.containsKey(player.getUniqueId())) {
-                map.put(player.getName(), PlanetUser.users.get(player.getUniqueId()).getPlunas());
-            }
-        }
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if(PlanetUser.users.containsKey(player.getUniqueId())) {
-                map.put(player.getName(), PlanetUser.users.get(player.getUniqueId()).getPlunas());
-            }
-        }
+        PlanetUser.users.forEach((uuid, planetUser) -> {
+            map.put(planetUser.getName(), planetUser.getPlunas());
+        });
 
         Map<String, Double> sortedMap =
                 map.entrySet().stream()
