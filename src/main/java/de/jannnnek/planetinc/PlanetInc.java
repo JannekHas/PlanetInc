@@ -6,8 +6,9 @@ import com.fren_gor.ultimateAdvancementAPI.advancement.RootAdvancement;
 import com.fren_gor.ultimateAdvancementAPI.advancement.display.AdvancementDisplay;
 import com.fren_gor.ultimateAdvancementAPI.advancement.display.AdvancementFrameType;
 import com.fren_gor.ultimateAdvancementAPI.events.PlayerLoadingCompletedEvent;
-import de.jannnnek.planetinc.advancements.building.SevenPlanetsAdvancement;
+import de.jannnnek.planetinc.advancements.building.*;
 import de.jannnnek.planetinc.advancements.click.*;
+import de.jannnnek.planetinc.advancements.planet.*;
 import de.jannnnek.planetinc.command.*;
 import de.jannnnek.planetinc.gui.GuiListener;
 import de.jannnnek.planetinc.listener.ClickListener;
@@ -102,7 +103,6 @@ public class PlanetInc extends JavaPlugin {
                 serverStarting = false;
             }
         }, 10);
-
         initConfig();
     }
 
@@ -192,13 +192,60 @@ public class PlanetInc extends JavaPlugin {
                 "millionclick", new AdvancementDisplay(Material.PAPER, "Zeit für eine neues Maus", AdvancementFrameType.TASK,
                 true, true, 7, 0, "maus.plunamc.de"), rootAdvancement, 1);
 
+
+
         SevenPlanetsAdvancement sevenPlanetsAdvancement = new SevenPlanetsAdvancement(
                 "sevenplanet", new AdvancementDisplay(Material.SUGAR_CANE, "7 Planeten", AdvancementFrameType.TASK,
                 true, true, 1, 1, "Auf Planet 7 im siebten Himmel"), rootAdvancement, 1);
+        TwentyEightPlanetsAdvancement twentyEightPlanetsAdvancement = new TwentyEightPlanetsAdvancement(
+                "twentyeightplanet", new AdvancementDisplay(Material.SUGAR_CANE, "28 Planeten", AdvancementFrameType.TASK,
+                true, true, 2, 1, "Muss hier viel Nickel geben"), rootAdvancement, 1);
+        FiftySixPlanetsAdvancement fiftySixPlanetsAdvancement = new FiftySixPlanetsAdvancement(
+                "fiftysixplanet", new AdvancementDisplay(Material.SUGAR_CANE, "56 Planeten", AdvancementFrameType.TASK,
+                true, true, 3, 1, "Noch 8, dann hast du dein Stack voll"), rootAdvancement, 1);
+        EightyFourPlanetsAdvancement eightyFourPlanetsAdvancement = new EightyFourPlanetsAdvancement(
+                "eightyfourplanet", new AdvancementDisplay(Material.SUGAR_CANE, "84 Planeten", AdvancementFrameType.TASK,
+                true, true, 4, 1, "In 84 Erdjahren hat Uranus dann auch mal die Sonne umkreist"), rootAdvancement, 1);
+        HundredTwelvePlanetsAdvancement hundredTwelvePlanetsAdvancement = new HundredTwelvePlanetsAdvancement(
+                "hundredtwelveplanet", new AdvancementDisplay(Material.SUGAR_CANE, "112 Planeten", AdvancementFrameType.TASK,
+                true, true, 5, 1, "Auch hier ist der Notruf unter 112 erreichbar"), rootAdvancement, 1);
+        HundredSixtyEightPlanetsAdvancement hundredSixtyEightPlanetsAdvancement = new HundredSixtyEightPlanetsAdvancement(
+                "hundredsixthyeightplanet", new AdvancementDisplay(Material.SUGAR_CANE, "168 Planeten", AdvancementFrameType.TASK,
+                true, true, 6, 1, "Am 22.07.168 gab es eine 7 minütige Sonnenfinsternis"), rootAdvancement, 1);
+        TwoHundredTwentyFourPlanetsAdvancement twoHundredTwentyFourPlanetsAdvancement = new TwoHundredTwentyFourPlanetsAdvancement(
+                "twohundredtwentyfourplanet", new AdvancementDisplay(Material.SUGAR_CANE, "224 Planeten", AdvancementFrameType.TASK,
+                true, true, 7, 1, "Keine Reise durchs All ➡ Kein Foto für dich"), rootAdvancement, 1);
+
+
+        VenusAdvancement venusAdvancement = new VenusAdvancement(
+                "venus", new AdvancementDisplay(Material.STONE_AXE, "Venus", AdvancementFrameType.TASK,
+                true, true, 1, -1, "460°C am Tag? Regen aus ätzender Schwefelsäure? Lieber schnell weiter!"), rootAdvancement, 1);
+        ErdeAdvancement erdeAdvancement = new ErdeAdvancement(
+                "erde", new AdvancementDisplay(Material.IRON_AXE, "Erde", AdvancementFrameType.TASK,
+                true, true, 2, -1, "Jetzt bist du knapp 150 Millionen Kilometer von der Sonne entfernt"), rootAdvancement, 1);
+        MarsAdvancement marsAdvancement = new MarsAdvancement(
+                "mars", new AdvancementDisplay(Material.GOLDEN_AXE, "Mars", AdvancementFrameType.TASK,
+                true, true, 3, -1, "Wusstest du, dass hier der höchste Berg des Sonnensystems ist?"), rootAdvancement, 1);
+        JupiterAdvancement jupiterAdvancement = new JupiterAdvancement(
+                "jupiter", new AdvancementDisplay(Material.DIAMOND_AXE, "Jupiter", AdvancementFrameType.TASK,
+                true, true, 4, -1, "Seit 340 Jahren wirbelt schon der große rote Fleck"), rootAdvancement, 1);
+        SaturnAdvancement saturnAdvancement = new SaturnAdvancement(
+                "saturn", new AdvancementDisplay(Material.NETHERITE_AXE, "Saturn", AdvancementFrameType.TASK,
+                true, true, 5, -1, "100m breite Blitze, die 1 Million Mal stärker sind, als auf der Erde? Weiter gehts!"), rootAdvancement, 1);
+        UranusAdvancement uranusAdvancement = new UranusAdvancement(
+                "uranus", new AdvancementDisplay(Material.DIAMOND_SWORD, "Uranus", AdvancementFrameType.TASK,
+                true, true, 6, -1, "Its raining diamonds, hallelujah"), rootAdvancement, 1);
+        NeptunAdvancement neptunAdvancement = new NeptunAdvancement(
+                "neptun", new AdvancementDisplay(Material.NETHERITE_SWORD, "Neptun", AdvancementFrameType.TASK,
+                true, true, 7, -1, "Einfach Eisvulkane die Stickstoff spucken"), rootAdvancement, 1);
 
         advancementTab.registerAdvancements(rootAdvancement, tenClickAdvancement, thousandClickAdvancement,
                 tenThousandClickAdvancement, fiftyThousandClickAdvancement, hundredThousandClickAdvancement,
-                fiveHundredThousandClickAdvancement, millionClickAdvancement, sevenPlanetsAdvancement);
+                fiveHundredThousandClickAdvancement, millionClickAdvancement, sevenPlanetsAdvancement,
+                twentyEightPlanetsAdvancement, fiftySixPlanetsAdvancement, eightyFourPlanetsAdvancement,
+                hundredTwelvePlanetsAdvancement, hundredSixtyEightPlanetsAdvancement,
+                twoHundredTwentyFourPlanetsAdvancement, venusAdvancement, erdeAdvancement, marsAdvancement,
+                jupiterAdvancement, saturnAdvancement, uranusAdvancement, neptunAdvancement);
 
         advancementTab.getEventManager().register(advancementTab, PlayerLoadingCompletedEvent.class, event -> {
             advancementTab.showTab(event.getPlayer());
