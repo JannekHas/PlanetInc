@@ -168,7 +168,7 @@ public class PlanetInc extends JavaPlugin {
 
         RootAdvancement rootAdvancement = new RootAdvancement(
                 advancementTab, "root", new AdvancementDisplay(Material.FIREWORK_ROCKET, "PlanetInc", AdvancementFrameType.CHALLENGE,
-                false, false, 0, 0, "Erfolge für PlanetInc"), "textures/block/black_wool.png");
+                false, false, 0, 1, "Erfolge für PlanetInc"), "textures/block/black_wool.png");
 
         TenClickAdvancement tenClickAdvancement = new TenClickAdvancement(
                 "tenclick", new AdvancementDisplay(Material.PAPER, "X", AdvancementFrameType.TASK,
@@ -218,26 +218,26 @@ public class PlanetInc extends JavaPlugin {
 
 
         VenusAdvancement venusAdvancement = new VenusAdvancement(
-                "venus", new AdvancementDisplay(Material.STONE_AXE, "Venus", AdvancementFrameType.TASK,
-                true, true, 1, -1, "460°C am Tag? Regen aus ätzender Schwefelsäure? Lieber schnell weiter!"), rootAdvancement, 1);
+                "venusplanet", new AdvancementDisplay(Material.STONE_AXE, "Venus", AdvancementFrameType.TASK,
+                true, true, 1, 2, "460°C am Tag? Regen aus ätzender Schwefelsäure? Lieber schnell weiter!"), rootAdvancement, 1);
         ErdeAdvancement erdeAdvancement = new ErdeAdvancement(
-                "erde", new AdvancementDisplay(Material.IRON_AXE, "Erde", AdvancementFrameType.TASK,
-                true, true, 2, -1, "Jetzt bist du knapp 150 Millionen Kilometer von der Sonne entfernt"), rootAdvancement, 1);
+                "erdeplanet", new AdvancementDisplay(Material.IRON_AXE, "Erde", AdvancementFrameType.TASK,
+                true, true, 2, 2, "Jetzt bist du knapp 150 Millionen Kilometer von der Sonne entfernt"), rootAdvancement, 1);
         MarsAdvancement marsAdvancement = new MarsAdvancement(
-                "mars", new AdvancementDisplay(Material.GOLDEN_AXE, "Mars", AdvancementFrameType.TASK,
-                true, true, 3, -1, "Wusstest du, dass hier der höchste Berg des Sonnensystems ist?"), rootAdvancement, 1);
+                "marsplanet", new AdvancementDisplay(Material.GOLDEN_AXE, "Mars", AdvancementFrameType.TASK,
+                true, true, 3, 2, "Wusstest du, dass hier der höchste Berg des Sonnensystems ist?"), rootAdvancement, 1);
         JupiterAdvancement jupiterAdvancement = new JupiterAdvancement(
-                "jupiter", new AdvancementDisplay(Material.DIAMOND_AXE, "Jupiter", AdvancementFrameType.TASK,
-                true, true, 4, -1, "Seit 340 Jahren wirbelt schon der große rote Fleck"), rootAdvancement, 1);
+                "jupiterplanet", new AdvancementDisplay(Material.DIAMOND_AXE, "Jupiter", AdvancementFrameType.TASK,
+                true, true, 4, 2, "Seit 340 Jahren wirbelt schon der große rote Fleck"), rootAdvancement, 1);
         SaturnAdvancement saturnAdvancement = new SaturnAdvancement(
-                "saturn", new AdvancementDisplay(Material.NETHERITE_AXE, "Saturn", AdvancementFrameType.TASK,
-                true, true, 5, -1, "100m breite Blitze, die 1 Million Mal stärker sind, als auf der Erde? Weiter gehts!"), rootAdvancement, 1);
+                "saturnplanet", new AdvancementDisplay(Material.NETHERITE_AXE, "Saturn", AdvancementFrameType.TASK,
+                true, true, 5, 2, "100m breite Blitze, die 1 Million Mal stärker sind, als auf der Erde? Weiter gehts!"), rootAdvancement, 1);
         UranusAdvancement uranusAdvancement = new UranusAdvancement(
-                "uranus", new AdvancementDisplay(Material.DIAMOND_SWORD, "Uranus", AdvancementFrameType.TASK,
-                true, true, 6, -1, "Its raining diamonds, hallelujah"), rootAdvancement, 1);
+                "uranusplanet", new AdvancementDisplay(Material.DIAMOND_SWORD, "Uranus", AdvancementFrameType.TASK,
+                true, true, 6, 2, "Its raining diamonds, hallelujah"), rootAdvancement, 1);
         NeptunAdvancement neptunAdvancement = new NeptunAdvancement(
-                "neptun", new AdvancementDisplay(Material.NETHERITE_SWORD, "Neptun", AdvancementFrameType.TASK,
-                true, true, 7, -1, "Einfach Eisvulkane die Stickstoff spucken"), rootAdvancement, 1);
+                "neptunplanet", new AdvancementDisplay(Material.NETHERITE_SWORD, "Neptun", AdvancementFrameType.TASK,
+                true, true, 7, 2, "Einfach Eisvulkane die Stickstoff spucken"), rootAdvancement, 1);
 
         advancementTab.registerAdvancements(rootAdvancement, tenClickAdvancement, thousandClickAdvancement,
                 tenThousandClickAdvancement, fiftyThousandClickAdvancement, hundredThousandClickAdvancement,
